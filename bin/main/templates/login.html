@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>로그인 페이지</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 300px; padding: 16px; background-color: #f3f3f3; margin: 0 auto; margin-top: 100px; border: 1px solid #ddd; border-radius: 5px; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; box-sizing: border-box; }
+        button { background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8px 0; border: none; cursor: pointer; width: 100%; }
+        .kakao-login { background-color: #FEE500; }
+        button:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <form action="/loginProcess" method="post">
+        <label for="email"><b>사용자 이메일</b></label>
+        <input type="text" placeholder="사용자 이름 입력" name="email" required id="email">
+    
+        <label for="psw"><b>비밀번호</b></label>
+        <input type="password" placeholder="비밀번호 입력" name="password" required id="password">
+    
+        <button type="submit">로그인</button>
+        <button type="button" onclick="location.href='회원가입페이지URL'">회원가입</button>
+        <button type="button" class="kakao-login">카카오로 로그인</button>
+    </form>
+</div>
+
+</body>
+</html>

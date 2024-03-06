@@ -1,7 +1,17 @@
 package com.security.demo.user.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.security.demo.user.DAO.UserDAO;
 import com.security.demo.user.DTO.AddUserRequest;
 import com.security.demo.user.vo.User;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * 프로그램 설명
@@ -15,31 +25,18 @@ import com.security.demo.user.vo.User;
  * </PRE>
  */
 
-public interface UserdetailService {
-	
-	/**
-	 * 메서드 설명 로그인을 하기위한 하나의 유저정보 조회
-	 * @Method Name  	: retrieveUser
-	 * @date   			: 2024. 3. 6.
-	 * @author   		: boyoung
-	 * @version     	: 1.0
-	 * ----------------------------------------
-	 * @param email
-	 * @return
-	 */
-	public User retrieveUser(String email);
-	
-	
-	/**
-	 * 메서드 설명 회원가입
-	 * @Method Name  	: createUser
-	 * @date   			: 2024. 3. 6.
-	 * @author   		: boyoung
-	 * @version     	: 1.0
-	 * ----------------------------------------
-	 * @param user
-	 * @return
-	 */
-	public Long createUser(AddUserRequest dto);
 
+@Service
+@RequiredArgsConstructor
+public class UserDetailService implements UserDetailsService{
+
+	private final UserDAO dao;
+
+
+	@Override
+	public User loadUserByUsername(String email) throws UsernameNotFoundException {
+		return dao.selectUser(email);
+	}
+	
+	
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>회원가입 페이지</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 300px; padding: 16px; background-color: #f3f3f3; margin: 0 auto; margin-top: 100px; border: 1px solid #ddd; border-radius: 5px; }
+        input[type="text"], input[type="password"], input[type="email"] { width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; box-sizing: border-box; }
+        button { background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8px 0; border: none; cursor: pointer; width: 100%; }
+        button:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <label for="email"><b>이메일</b></label>
+    <input type="email" placeholder="이메일 입력" name="email" required id="email">
+
+    <label for="psw"><b>비밀번호</b></label>
+    <input type="password" placeholder="비밀번호 입력" name="password" required id="password">
+
+    <button type="button" onclick="fn_signup()">회원가입</button>
+</div>
+
+</body>
+</html>
+<script>
+
+    //회원가입
+    function fn_signup(){
+        var email = document.querySelector('#email').value;
+        var password = document.querySelector('#password').value;
+
+        $.ajax({
+            url : '/user',
+            type : 'post',
+            contentType: "application/json",
+            data : JSON.stringify({
+                'email' : email
+                ,'password' : password
+            }),
+            success : function(res){
+                alert('회원가입이 성공했습니다.');
+                location.href ='/home';
+            },
+            error: function () {
+                alert('회원가입이 실패했습니다.');
+            }
+        })
+    }
+
+
+
+</script>
+

@@ -20,28 +20,32 @@ import lombok.RequiredArgsConstructor;
  * 2024. 3. 6. boyoung : 최초작성
  * </PRE>
  */
-
-
 @Service
 @RequiredArgsConstructor
-public class UserDetailServiceImpl implements UserdetailService{
-
+public class UserServiceImpl implements UserService{
+	
 	private final UserDAO dao;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 
-	@Override
-	public User retrieveUser(String email) {
-		return dao.selectUser(email);
-	}
-
+	
+	
 	@Override
 	public Long createUser(AddUserRequest dto) {
-		
 		return dao.insertUser(User.builder()
-			.email(dto.getEmail())
-			.password(bCryptPasswordEncoder.encode(dto.getPassword()))
-			.build());
+				.email(dto.getEmail())
+				.password(bCryptPasswordEncoder.encode(dto.getPassword()))
+				.build());
+	}
+
+
+	@Override
+	public String loginUser(String email, String password) {
+		//1.디비와 정보 비교
+		//2.성공실패여부
+		
+		return null;
 	}
 	
-	
+
 }

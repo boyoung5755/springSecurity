@@ -12,7 +12,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import lombok.RequiredArgsConstructor;
-
+/**
+ * 프로그램 설명
+ * @date        : 2024. 3. 6.
+ * @author      : boyoung
+ * @version	: 1.0
+ * <PRE>
+ * ----------------------------
+ * 개정이력
+ * 2024. 3. 6. boyoung : 최초작성
+ * </PRE>
+ */
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
@@ -25,7 +35,7 @@ public class WebSecurityConfig {
 	public WebSecurityCustomizer configure() {
 		
 		return (web) -> web.ignoring()
-			.requestMatchers("*");
+			.requestMatchers("/static/**");
 	}
 	
 	@Bean
@@ -37,6 +47,9 @@ public class WebSecurityConfig {
 				.anyRequest().authenticated())
 				.formLogin(login ->login  // 폼기반 로그인 설정
 				.loginPage("/login")
+				.loginProcessingUrl("/loginProcess")
+				.usernameParameter("email")
+				.passwordParameter("password")
 				.defaultSuccessUrl("/home"))
 				.logout(logout ->logout  // 로그아웃 설정
 				.logoutSuccessUrl("/login")
@@ -51,7 +64,7 @@ public class WebSecurityConfig {
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
 
 		daoAuthenticationProvider.setUserDetailsService(userService);
-		daoAuthenticationProvider.setPasswordEncoder(BCryptPasswordEncoder());
+		daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
 		
 		return daoAuthenticationProvider;
 		
@@ -59,7 +72,7 @@ public class WebSecurityConfig {
 	
 	//패스워드 인코더로 사용할 빈 등록
 	@Bean 
-	private PasswordEncoder BCryptPasswordEncoder() {
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
