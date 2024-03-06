@@ -8,4 +8,13 @@
 		<setting name="defaultExecutorType" value="REUSE" />
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
+	
+	<mappers>
+        <package name="classpath:/mybatis/mapper/*.xml"/>
+    </mappers>
+	
+	<typeAliases>
+        <typeAlias alias="User" type="com.security.demo.user.vo.User"/>
+    </typeAliases>
+	
 </configuration>

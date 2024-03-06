@@ -1,10 +1,12 @@
 package com.security.demo.user.DAO;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import com.security.demo.user.vo.User;
 
 @Mapper
+@Repository
 public interface UserDAO {
 	
 	/**

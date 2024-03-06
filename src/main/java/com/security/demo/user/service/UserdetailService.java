@@ -32,11 +32,17 @@ public class UserDetailService implements UserDetailsService{
 
 	private final UserDAO dao;
 
-
 	@Override
-	public User loadUserByUsername(String email) throws UsernameNotFoundException {
-		return dao.selectUser(email);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return dao.selectUser(username);
 	}
-	
+
+
+//	@Override
+//	public User loadUserByUsername(String email) {
+//		return dao.selectUser(email);
+//	}
+//	
 	
 }
