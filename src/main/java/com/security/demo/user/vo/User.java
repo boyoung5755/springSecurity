@@ -16,31 +16,34 @@ import lombok.NoArgsConstructor;
 public class User implements UserDetails {
 	
 	
-	private Long id;
+	private String id;
 	
 	private String email;
 	
 	private String password;
 	
+	private String role;
+	
+	private Collection<? extends GrantedAuthority> authorities;
 	
 	
 	
 	//권한 반환
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return this.authorities;
 	}
 
 	//사용자의 패스워드 반환
 	@Override
 	public String getPassword() {
-		return null;
+		return this.password;
 	}
 
 	//사용자의 id반환
 	@Override
 	public String getUsername() {
-		return null;
+		return this.email;
 	}
 
 	//계정 만료 여부 반환
@@ -70,7 +73,7 @@ public class User implements UserDetails {
 	}
 	
 	@Builder
-	public User(String email, String password, String auth) {
+	public User(String email, String password, String role) {
 		this.email = email;
 		this.password = password;
 	}

@@ -5,6 +5,7 @@
 	<select id="selectUser" resultType="User" parameterType="String">
 		select EMAIL
 			, PASSWORD
+			,role
 		from `user`
 		where email = #{email}
 	</select>

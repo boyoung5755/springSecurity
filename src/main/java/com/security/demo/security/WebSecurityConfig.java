@@ -1,5 +1,6 @@
 package com.security.demo.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -10,6 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.security.demo.user.DAO.UserDAO;
+import com.security.demo.user.service.UserdetailService;
 
 import lombok.RequiredArgsConstructor;
 /**
@@ -28,7 +32,6 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 public class WebSecurityConfig {
 	
-	private final UserDetailsService userService;
 	
 	//스프링 시큐리티 기능 비활성화
 	@Bean
@@ -38,19 +41,37 @@ public class WebSecurityConfig {
 			.requestMatchers("/static/**");
 	}
 	
+	@Autowired
+	private UserDAO dao;
+	
+	@Bean
+	public UserdetailService service() {return new UserdetailService(dao);}
+	
+	@Bean
+	public CustomAuthenticationProvider authenticationProvider() {return new CustomAuthenticationProvider(service());}
+	
+	@Bean
+	public FailHandler failHandler() {return new FailHandler();}
+	
+	@Bean
+	public SuccessHandler successHandler() {return new SuccessHandler();}
+	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		
 		return http
 				.authorizeHttpRequests(requests ->requests
 				.requestMatchers("/login" , "/signup", "/user").permitAll()
+				.requestMatchers("/admin/**").hasRole("ADMIN")
 				.anyRequest().authenticated())
+				.authenticationProvider(authenticationProvider())
 				.formLogin(login ->login  // 폼기반 로그인 설정
 				.loginPage("/login")
 				.loginProcessingUrl("/loginProcess")
 				.usernameParameter("email")
 				.passwordParameter("password")
-				.defaultSuccessUrl("/home"))
+				.successHandler(successHandler())
+				.failureHandler(failHandler()))
 				.logout(logout ->logout  // 로그아웃 설정
 				.logoutSuccessUrl("/login")
 				.invalidateHttpSession(true))
@@ -63,7 +84,7 @@ public class WebSecurityConfig {
 	public DaoAuthenticationProvider daoAuthenticationProvider()  throws Exception{
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
 
-		daoAuthenticationProvider.setUserDetailsService(userService);
+		daoAuthenticationProvider.setUserDetailsService(service());
 		daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
 		
 		return daoAuthenticationProvider;

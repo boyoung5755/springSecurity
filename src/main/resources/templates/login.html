@@ -18,14 +18,24 @@
         <label for="email"><b>사용자 이메일</b></label>
         <input type="text" placeholder="사용자 이름 입력" name="email" required id="email">
     
-        <label for="psw"><b>비밀번호</b></label>
+        <label for="password"><b>비밀번호</b></label>
         <input type="password" placeholder="비밀번호 입력" name="password" required id="password">
     
         <button type="submit">로그인</button>
-        <button type="button" onclick="location.href='회원가입페이지URL'">회원가입</button>
-        <button type="button" class="kakao-login">카카오로 로그인</button>
     </form>
+        <button type="button" onclick="fn_goSign()">회원가입</button>
+        <button type="button" class="kakao-login">카카오로 로그인</button>
 </div>
 
 </body>
 </html>
+
+<script>
+
+    function fn_goSign(){
+
+        location.href='/signup';
+
+    }
+
+</script>

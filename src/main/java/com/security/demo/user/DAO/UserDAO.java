@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.security.demo.user.vo.User;
 
+
 @Mapper
 @Repository
 public interface UserDAO {

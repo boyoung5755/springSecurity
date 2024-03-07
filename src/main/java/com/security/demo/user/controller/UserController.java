@@ -1,14 +1,10 @@
 package com.security.demo.user.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.security.demo.user.DTO.AddUserRequest;
 import com.security.demo.user.service.UserService;

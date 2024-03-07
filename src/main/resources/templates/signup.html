@@ -9,6 +9,10 @@
         button { background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8px 0; border: none; cursor: pointer; width: 100%; }
         button:hover { opacity: 0.8; }
     </style>
+
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.serializejson.js"></script>
+    
 </head>
 <body>
 
@@ -16,7 +20,7 @@
     <label for="email"><b>이메일</b></label>
     <input type="email" placeholder="이메일 입력" name="email" required id="email">
 
-    <label for="psw"><b>비밀번호</b></label>
+    <label for="password"><b>비밀번호</b></label>
     <input type="password" placeholder="비밀번호 입력" name="password" required id="password">
 
     <button type="button" onclick="fn_signup()">회원가입</button>
